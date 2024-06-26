@@ -329,8 +329,6 @@ const QuizAnswersPage = ({ params }: QuizAnswerPageProps) => {
 
   const [isCompleted, setIsCompleted] = useState(false);
 
-  useEffect(() => {}, [quizAnswers]);
-
   return (
     <Wrapper className="flex items-center justify-center my-5 h-full">
       {isCompleted ? (
@@ -452,7 +450,15 @@ const QuizComplete = ({ quiz, answers }: QuizCompleteProps) => {
         <p>Правильные ответы:</p>
         <ul className="flex flex-col ml-10 list-decimal">
           {quiz.questions.map((quest, index) => {
-            return <li key={index}>{quest.answers[quest.correctAnswer]}</li>;
+            return (
+              <li
+                key={index}
+                className={cn(
+                  quest.correctAnswer !== answers[index] && "text-red-600",
+                )}>
+                {quest.answers[quest.correctAnswer]}
+              </li>
+            );
           })}
         </ul>
       </div>
